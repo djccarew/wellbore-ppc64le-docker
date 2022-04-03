@@ -80,7 +80,8 @@ RUN apt-get update \
 
 # Install Apache Arrow C++ libs. Required to build pyarrow==4.0.1 dependency on POWER
 RUN pip3 install --user numpy==1.21.1
-RUN git clone --branch release-4.0.1 https://github.com/apache/arrow && cd arrow/cpp && mkdir release && cd release && cmake -DARROW_PYTHON=ON -DARROW_PARQUET=ON -DCMAKE_CXX_FLAGS='-fPIC -O3 -mcpu=power8' -DPARQUET_REQUIRE_ENCRYPTION=ON -GNinja ..
+RUN git clone --branch release-4.0.1 https://github.com/apache/arrow
+RUN cd arrow/cpp && mkdir release && cd release && cmake -DARROW_PYTHON=ON -DARROW_PARQUET=ON -DCMAKE_CXX_FLAGS='-fPIC -O3 -mcpu=power8' -DPARQUET_REQUIRE_ENCRYPTION=ON -GNinja ..
 RUN cd /arrow/cpp/release && ninja install
 RUN rm -fr /arrow
 
